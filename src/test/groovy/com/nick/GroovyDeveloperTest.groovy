@@ -6,13 +6,17 @@ import org.mockito.Mock
 import com.edu.service.Service
 import org.junit.Before
 import org.junit.Test
+import org.junit.Assert.*
 import org.groovykoans.koan01.User
 import org.groovykoans.koan01.UserService
 import org.groovykoans.koan01.Address
 import static org.mockito.Mockito.times
 import static org.mockito.Mockito.verify
 import static org.mockito.MockitoAnnotations.initMocks
-
+import static org.junit.Assert.assertThat
+import static org.hamcrest.CoreMatchers.*
+import static org.junit.matchers.JUnitMatchers.*
+import static org.junit.Assert.assertEquals
 
 class GroovyDeveloperTest {
 
@@ -88,7 +92,26 @@ class GroovyDeveloperTest {
 
 		assert result.toCharArray().size() == 16
 	}
+   //String.metaClass.shout = {->
+	  // return delegate.toUpperCase()
+/*he no-argument shout() closure is added to the String's ExpandoMetaClass (EMC). 
+ * Every class — both Java and Groovy — is surrounded by an EMC that 
+ * intercepts method calls to it. This means that even though the String is final, 
+ * methods can be added to its EMC. 
+ * As a result, it now looks to the casual observer as if String has a shout() method.
+Because this kind of relationship doesn't exist in the Java language, 
+Groovy had to introduce a new concept: delegates. 
+The delegate is the class that the EMC surrounds.
+Knowing that method calls hit the EMC first and the delegate second, you can do all sorts of interesting things. For example, notice how Listing 9 actually redefines the toUpperCase() method on String:*/	
+  @Test void testStringShout(){
+	   def shout= {src->src.toUpperCase()
+		   assert HELLO==shout("hello")
+	   }
+   }
 
+
+
+	
    @Test void test04_Lists() {
 		// In Java, list creation can be somewhat cumbersome:
 		List<String> javaList = new ArrayList<String>();
